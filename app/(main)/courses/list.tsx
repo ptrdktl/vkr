@@ -1,7 +1,7 @@
 "use client";
 
-import { useRouter } from "next/compat/router";
-// import { useRouter } from "next/navigation";
+// import { useRouter } from "next/compat/router";
+import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
 import { courses, userProgress } from "@/db/schema";
@@ -23,7 +23,7 @@ export const List = ({ courses, activeCourseId }: Props) => {
     if (pending) return;
 
     if (id === activeCourseId) {
-      return router?.push("/learn");
+      return router.push("/learn");
     }
 
     startTransition(() => {

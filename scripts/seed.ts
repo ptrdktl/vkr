@@ -94,11 +94,24 @@ const main = async () => {
         order: 1,
         question: 'Which one of these is the "the man"?',
       },
+      {
+        id: 2,
+        lessonId: 1, //Nouns
+        type: "ASSIST",
+        order: 2,
+        question: "the man",
+      },
+      {
+        id: 3,
+        lessonId: 1, //Nouns
+        type: "SELECT",
+        order: 3,
+        question: 'Which one of these is the "the robot"?',
+      },
     ]);
 
     await db.insert(schema.challengeOptions).values([
       {
-        id: 1,
         challengeId: 1, // Which one of these is the "the man"?
         imageSrc: "/man.svg",
         correct: true,
@@ -106,7 +119,6 @@ const main = async () => {
         audioSrc: "/cz_man.mp3",
       },
       {
-        id: 2,
         challengeId: 1,
         imageSrc: "/woman.svg",
         correct: false,
@@ -114,12 +126,77 @@ const main = async () => {
         audioSrc: "/cz_woman.mp3",
       },
       {
-        id: 3,
         challengeId: 1,
         imageSrc: "/robot.svg",
         correct: false,
         text: "robot",
         audioSrc: "/cz_robot.mp3",
+      },
+    ]);
+
+    await db.insert(schema.challengeOptions).values([
+      {
+        challengeId: 2, // Which one of these is the "the man"?
+        correct: true,
+        text: "muž",
+        audioSrc: "/cz_man.mp3",
+      },
+      {
+        challengeId: 2,
+        correct: false,
+        text: "žena",
+        audioSrc: "/cz_woman.mp3",
+      },
+      {
+        challengeId: 2,
+        correct: false,
+        text: "robot",
+        audioSrc: "/cz_robot.mp3",
+      },
+    ]);
+
+    await db.insert(schema.challengeOptions).values([
+      {
+        challengeId: 3, // Which one of these is the "the robot"?
+        correct: false,
+        text: "muž",
+        audioSrc: "/cz_man.mp3",
+      },
+      {
+        challengeId: 3,
+        correct: false,
+        text: "žena",
+        audioSrc: "/cz_woman.mp3",
+      },
+      {
+        challengeId: 3,
+        correct: true,
+        text: "robot",
+        audioSrc: "/cz_robot.mp3",
+      },
+    ]);
+
+    await db.insert(schema.challenges).values([
+      {
+        id: 4,
+        lessonId: 2, //Verbs
+        type: "SELECT",
+        order: 1,
+        question: 'Which one of these is the "the man"?',
+      },
+      {
+        id: 5,
+        lessonId: 2, //Verbs
+        type: "ASSIST",
+        order: 2,
+        question: "the man",
+      },
+      {
+        id: 6,
+        lessonId: 2, //Verbs
+        type: "SELECT",
+        order: 3,
+        question: 'Which one of these is the "the robot"?',
       },
     ]);
 
