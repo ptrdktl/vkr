@@ -1,6 +1,5 @@
 "use client";
 
-// import { useRouter } from "next/compat/router";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
@@ -8,7 +7,7 @@ import { courses, userProgress } from "@/db/schema";
 import { upsertUserProgress } from "@/actions/user-progress";
 
 import { Card } from "./card";
-// import { toast } from "sonner";
+import { toast } from "sonner";
 
 type Props = {
   courses: (typeof courses.$inferSelect)[];
@@ -29,7 +28,7 @@ export const List = ({ courses, activeCourseId }: Props) => {
     startTransition(() => {
       upsertUserProgress(id);
       // возникает ошибка какая-то в nextrouter
-      // upsertUserProgress(id).catch(() => toast.error("Something went"));
+      upsertUserProgress(id).catch(() => toast.error("Something went"));
     });
   };
 
