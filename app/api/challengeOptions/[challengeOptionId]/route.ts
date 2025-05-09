@@ -7,14 +7,14 @@ import { isAdmin } from "@/lib/admin";
 
 export const GET = async (
   req: Request,
-  { params }: { params: { challengeOptionId: number } }
+  { params }: { params: Promise<{ challengeOptionId: number }> }
 ) => {
   if (!(await isAdmin())) {
     return new NextResponse("Unauthorized", { status: 403 });
   }
 
   const data = await db.query.challengeOptions.findFirst({
-    where: eq(challengeOptions.id, params.challengeOptionId),
+    where: eq(challengeOptions.id, (await params).challengeOptionId),
   });
 
   return NextResponse.json(data);
@@ -22,7 +22,7 @@ export const GET = async (
 
 export const PUT = async (
   req: Request,
-  { params }: { params: { challengeOptionId: number } }
+  { params }: { params: Promise<{ challengeOptionId: number }> }
 ) => {
   if (!(await isAdmin())) {
     return new NextResponse("Unauthorized", { status: 403 });
@@ -35,7 +35,7 @@ export const PUT = async (
     .set({
       ...body,
     })
-    .where(eq(challengeOptions.id, params.challengeOptionId))
+    .where(eq(challengeOptions.id, (await params).challengeOptionId))
     .returning();
 
   return NextResponse.json(data[0]);
@@ -43,7 +43,7 @@ export const PUT = async (
 
 export const DELETE = async (
   req: Request,
-  { params }: { params: { challengeOptionId: number } }
+  { params }: { params: Promise<{ challengeOptionId: number }> }
 ) => {
   if (!(await isAdmin())) {
     return new NextResponse("Unauthorized", { status: 403 });
@@ -51,7 +51,7 @@ export const DELETE = async (
 
   const data = await db
     .delete(challengeOptions)
-    .where(eq(challengeOptions.id, params.challengeOptionId))
+    .where(eq(challengeOptions.id, (await params).challengeOptionId))
     .returning();
 
   return NextResponse.json(data[0]);

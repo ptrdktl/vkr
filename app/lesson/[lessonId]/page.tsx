@@ -5,20 +5,18 @@ import { getLesson, getUserProgress, getUserSubscription } from "@/db/queries";
 import { Quiz } from "../quiz";
 
 type Props = {
-  params: {
-    lessonId: number;
-  };
+  params: Promise<{ lessonId: number }>;
 };
 
 const LessonIdPage = async ({ params }: Props) => {
-  const lessonData = getLesson(params.lessonId);
+  const lessonData = getLesson((await params).lessonId);
   const userProgressData = getUserProgress();
   const userSubscriptionData = getUserSubscription();
 
   const [lesson, userProgress, userSubscription] = await Promise.all([
     lessonData,
     userProgressData,
-    userSubscriptionData
+    userSubscriptionData,
   ]);
 
   if (!lesson || !userProgress) {
