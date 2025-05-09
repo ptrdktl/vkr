@@ -34,10 +34,10 @@ export const ExitModal = () => {
             <Image src="/mascot_sad.svg" alt="Mascot" height={80} width={80} />
           </div>
           <DialogTitle className="text-center font-bold text-2xl">
-            Wait, don&apos;t go!
+            Подождите, не уходите!
           </DialogTitle>
           <DialogDescription className="text-center text-base">
-            You&apos;re about to leave the lesson. Are you sure?
+            Вы уверены, что хотите покинуть урок?
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mb-4">
@@ -48,7 +48,7 @@ export const ExitModal = () => {
               size="lg"
               onClick={close}
             >
-              Keep Learning
+              Продолжить урок
             </Button>
             <Button
               variant="dangerOutline"
@@ -59,7 +59,7 @@ export const ExitModal = () => {
                 router.push("/learn");
               }}
             >
-              End session
+              Закончить
             </Button>
           </div>
         </DialogFooter>

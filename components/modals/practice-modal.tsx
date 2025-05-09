@@ -33,10 +33,10 @@ export const PracticeModal = () => {
             <Image src="/heart.svg" alt="Heart" height={100} width={100} />
           </div>
           <DialogTitle className="text-center font-bold text-2xl">
-            Practice lesson
+            Практика
           </DialogTitle>
           <DialogDescription className="text-center text-base">
-            Use practice lessons to regain hearts and points.
+            Пройдите урок снова, чтобы воспонить жизни.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mb-4">
@@ -47,7 +47,7 @@ export const PracticeModal = () => {
               size="lg"
               onClick={close}
             >
-              I understand
+              Начать практику
             </Button>
           </div>
         </DialogFooter>

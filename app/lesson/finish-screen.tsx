@@ -52,7 +52,7 @@ export const FinishScreen = ({ challenges, hearts, lessonId }: Props) => {
           height={50}
         />
         <h1 className="text-xl lg:text-3xl font-bold text-neutral-700">
-          Great job! <br /> You&apos;ve completed the lesson.
+          Отлично! <br /> Вы прошли урок.
         </h1>
         <div className="flex items-center gap-x-4 w-full">
           <ResultCard variant="points" value={challenges.length * 10} />

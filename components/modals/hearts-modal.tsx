@@ -39,10 +39,10 @@ export const HeartsModal = () => {
             <Image src="/mascot_bad.svg" alt="Mascot" height={80} width={80} />
           </div>
           <DialogTitle className="text-center font-bold text-2xl">
-            You ran out of hearts!
+            У вас закончились жизни!
           </DialogTitle>
           <DialogDescription className="text-center text-base">
-            Get Pro for unlimited hearts!
+            Получить Про для безлимитных жизней!
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mb-4">
@@ -53,7 +53,7 @@ export const HeartsModal = () => {
               size="lg"
               onClick={onClick}
             >
-              Get unlimited hearts
+              Получить безлимитные жизни
             </Button>
             <Button
               variant="primaryOutline"
@@ -61,7 +61,7 @@ export const HeartsModal = () => {
               size="lg"
               onClick={close}
             >
-              No thanks
+              Нет, спасибо
             </Button>
           </div>
         </DialogFooter>
