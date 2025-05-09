@@ -28,7 +28,7 @@ export const List = ({ courses, activeCourseId }: Props) => {
     startTransition(() => {
       upsertUserProgress(id);
       // возникает ошибка какая-то в nextrouter
-      upsertUserProgress(id).catch(() => toast.error("Something went"));
+      // upsertUserProgress(id).catch(() => toast.error("Something went"));
     });
   };
 
