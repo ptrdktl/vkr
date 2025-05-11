@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { eq } from "drizzle-orm";
+import { eq, ne } from "drizzle-orm";
 import { auth } from "@clerk/nextjs/server";
 
 import db from "@/db/drizzle";
@@ -12,7 +12,17 @@ import {
   userSubscription,
 } from "./schema";
 
-export const getUserProgress = cache(async () => {
+export const getUserProgress = cache(async (id?: string) => {
+  if (id) {
+    const data = await db.query.userProgress.findFirst({
+      where: eq(userProgress.userId, id),
+      with: {
+        activeCourse: true,
+      },
+    });
+
+    return data;
+  }
   const { userId } = await auth();
 
   if (!userId) {
@@ -258,6 +268,27 @@ export const getTopTenUsers = cache(async () => {
       userName: true,
       userImageSrc: true,
       points: true,
+    },
+  });
+
+  return data;
+});
+
+export const getUsers = cache(async () => {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return null;
+  }
+
+  const data = await db.query.userProgress.findMany({
+    where: ne(userProgress.userId, userId),
+    columns: {
+      userId: true,
+      userName: true,
+      userImageSrc: true,
+      points: true,
+      hearts: true,
     },
   });
 

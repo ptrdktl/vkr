@@ -55,7 +55,7 @@ const LeaderboardPage = async () => {
             Таблица лидеров
           </h1>
           <p className="text-muted-foreground text-center text-lg mb-6">
-            Посмотри на каком месте ты находишься среди учащихся.
+            Посмотри на каком месте ты находишься среди учеников.
           </p>
           <Separator className="mb-4 h-0.5 rounded-full" />
           {leaderboard.map((userProgress, index) => (

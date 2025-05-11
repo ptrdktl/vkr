@@ -147,4 +147,8 @@ export const userSubscription = pgTable("user_subscription", {
   stripeCurrentPeriodEnd: timestamp("stripe_current_period_end").notNull(),
 });
 
-
+export const follows = pgTable("follow", {
+  id: serial("id").primaryKey(),
+  followerUserId: text("follower_user_id").notNull(),
+  followingUserId: text("following_user_id").notNull(),
+});
