@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Check, Crown, Star } from "lucide-react";
+import { CheckCheck, Play, Flag } from "lucide-react";
 import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 
 import { cn } from "@/lib/utils";
@@ -47,7 +47,7 @@ export const LessonButton = ({
   const isLast = index === totalCount;
   const isCompleted = !current && !locked;
 
-  const Icon = isCompleted ? Check : isLast ? Crown : Star;
+  const Icon = isCompleted ? CheckCheck : isLast ? Flag : Play;
 
   const href = isCompleted ? `/lesson/${id}` : "/lesson";
 
@@ -70,33 +70,38 @@ export const LessonButton = ({
               Начать
               <div className="absolute left-1/2 -bottom-2 w-0 h-0 border-x-8 border-x-transparent border-t-8 transform -translate-x-1/2" />
             </div>
-            <CircularProgressbarWithChildren
-              value={Number.isNaN(percentage) ? 0 : percentage}
-              styles={{
-                path: {
-                  stroke: "#4ade80",
-                },
-                trail: {
-                  stroke: "e5e7eb",
-                },
-              }}
-            >
-              <Button
-                size="rounded"
-                variant={locked ? "locked" : "orange"}
-                className="h-[70px] w-[70px] border-b-8"
+            <div>
+              <CircularProgressbarWithChildren
+                value={Number.isNaN(percentage) ? 0 : percentage}
+                styles={{
+                  path: {
+                    stroke: "#f97316",
+                  },
+                  trail: {
+                    stroke: "e5e7eb",
+                  },
+                }}
               >
-                <Icon
-                  className={cn(
-                    "size-10",
-                    locked
-                      ? "fill-neutral-400 text-neutral-400 stroke-neutral-400"
-                      : "fill-primary-foreground text-primary-foreground",
-                    isCompleted && "fill-none stroke-[4]"
-                  )}
-                />
-              </Button>
-            </CircularProgressbarWithChildren>
+                <Button
+                  size="rounded"
+                  variant={locked ? "locked" : "orange"}
+                  className="h-[70px] w-[70px] border-b-8"
+                >
+                  <Icon
+                    className={cn(
+                      "size-10",
+                      locked
+                        ? "fill-neutral-400 text-neutral-400 stroke-neutral-400"
+                        : "fill-primary-foreground text-primary-foreground",
+                      isCompleted && "fill-none stroke-[4]"
+                    )}
+                  />
+                </Button>
+              </CircularProgressbarWithChildren>
+              <div className="w-50 absolute top-8 left-30 text-muted-foreground text-xl font-bold hidden sm:block ">
+                Пора пройти урок
+              </div>
+            </div>
           </div>
         ) : (
           <Button

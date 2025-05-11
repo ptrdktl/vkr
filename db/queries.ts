@@ -6,6 +6,7 @@ import db from "@/db/drizzle";
 import {
   challengeProgress,
   courses,
+  follows,
   lessons,
   units,
   userProgress,
@@ -292,5 +293,15 @@ export const getUsers = cache(async () => {
     },
   });
 
-  return data;
+  const friends = await db.query.follows.findMany({
+    where: eq(follows.followerUserId, userId),
+  });
+
+  const userFriends = friends.map((friend) => {
+    const user = data.find((user) => user.userId === friend.followingUserId);
+
+    return user;
+  });
+
+  return { data, userFriends };
 });

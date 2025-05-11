@@ -7,7 +7,7 @@ import { getUsers, getUserProgress, getUserSubscription } from "@/db/queries";
 import { Promo } from "@/components/promo";
 import { Quests } from "@/components/quests";
 import { currentUser } from "@clerk/nextjs/server";
-import { FriendsList } from "./friends-list";
+import { List } from "./list";
 
 const FriendsPage = async () => {
   const userProgressData = getUserProgress();
@@ -41,7 +41,7 @@ const FriendsPage = async () => {
         <Quests points={userProgress.points} />
       </StickyWrapper>
       <FeedWrapper>
-        <FriendsList user={user?.id} otherUsers={otherUsers ?? []} />
+        <List user={user?.id} otherUsers={otherUsers! ?? []} />
       </FeedWrapper>
     </div>
   );

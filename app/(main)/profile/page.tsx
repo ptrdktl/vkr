@@ -4,15 +4,16 @@ import { redirect } from "next/navigation";
 import { FeedWrapper } from "@/components/feed-wrapper";
 import { UserProgress } from "@/components/user-progress";
 import { StickyWrapper } from "@/components/sticky-wrapper";
-import { getUserProgress, getUserSubscription } from "@/db/queries";
+import { getUserProgress, getUsers, getUserSubscription } from "@/db/queries";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Promo } from "@/components/promo";
 import { Quests } from "@/components/quests";
-import { ProfileInfo } from "@/components/profile-info";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { ProfileInfo } from "./profile-info";
 
 type Props = {
   id?: string;
@@ -21,10 +22,12 @@ type Props = {
 const ProfilePage = async ({ id }: Props) => {
   const userProgressData = id ? getUserProgress(id) : getUserProgress();
   const userSubscriptionData = getUserSubscription();
+  const usersData = getUsers();
 
-  const [userProgress, userSubscription] = await Promise.all([
+  const [userProgress, userSubscription, users] = await Promise.all([
     userProgressData,
     userSubscriptionData,
+    usersData,
   ]);
 
   if (!userProgress || !userProgress.activeCourse) {
@@ -68,7 +71,6 @@ const ProfilePage = async ({ id }: Props) => {
               </p>
               <Separator className="mb-4 h-0.5 rounded-full" />
             </div>
-
             <div className="space-y-2 mt-12">
               <div className="flex items-center gap-x-2 justify-center">
                 <Avatar className="size-40">
@@ -119,7 +121,11 @@ const ProfilePage = async ({ id }: Props) => {
                   </div>
                 </div>
               </div>
-              <ProfileInfo name={userProgress?.userName ?? ""} />
+              <ProfileInfo
+                id={id && userProgress.userId}
+                name={userProgress?.userName ?? ""}
+                userFriends={users?.userFriends}
+              />
             </div>
           </div>
         </div>
