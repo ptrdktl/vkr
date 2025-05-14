@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { eq, ne } from "drizzle-orm";
+import { and, eq, ne, or } from "drizzle-orm";
 import { auth } from "@clerk/nextjs/server";
 
 import db from "@/db/drizzle";
@@ -8,6 +8,8 @@ import {
   courses,
   follows,
   lessons,
+  messages,
+  rooms,
   units,
   userProgress,
   userSubscription,
@@ -304,4 +306,87 @@ export const getUsers = cache(async () => {
   });
 
   return { data, userFriends };
+});
+
+export const getRoom = cache(async (otherUserId: string) => {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return null;
+  }
+
+  const data = await db.query.rooms.findFirst({
+    where: or(
+      and(eq(rooms.firstUserId, userId), eq(rooms.secondUserId, otherUserId)),
+      and(eq(rooms.firstUserId, otherUserId), eq(rooms.secondUserId, userId))
+    ),
+  });
+  console.log(data?.lastUpdate.toLocaleTimeString());
+
+  return data;
+});
+
+export const getUserRooms = cache(async () => {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return null;
+  }
+
+  const data = await db.query.rooms.findMany({
+    where: or(eq(rooms.firstUserId, userId), eq(rooms.secondUserId, userId)),
+    orderBy: (rooms, { desc }) => [desc(rooms.lastUpdate)],
+    with: {
+      messages: true,
+    },
+  });
+
+  const userRooms = data.map(async (room) => {
+    const firstUser = await db.query.userProgress.findFirst({
+      where: eq(userProgress.userId, room.firstUserId),
+    });
+
+    const firstUserImageSrc = firstUser?.userImageSrc;
+    const firstUserName = firstUser?.userName;
+
+    const secondUser = await db.query.userProgress.findFirst({
+      where: eq(userProgress.userId, room.secondUserId),
+    });
+
+    const secondUserImageSrc = secondUser?.userImageSrc;
+    const secondUserName = secondUser?.userName;
+
+    return {
+      ...room,
+      firstUserImageSrc: firstUserImageSrc,
+      firstUserName: firstUserName,
+      secondUserImageSrc: secondUserImageSrc,
+      secondUserName: secondUserName,
+    };
+  });
+
+  return userRooms;
+});
+
+export const getMessages = cache(async (roomId: number) => {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return null;
+  }
+
+  const data = await db.query.messages.findMany({
+    where: eq(messages.roomId, roomId),
+    orderBy: (messages, { asc }) => [asc(messages.createdAt)],
+    columns: {
+      id: true,
+      senderUserId: true,
+      senderUserImageSrc: true,
+      senderUserName: true,
+      value: true,
+      createdAt: true,
+    },
+  });
+
+  return data;
 });

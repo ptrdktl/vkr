@@ -6,12 +6,18 @@ import { Loader } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 import { SidebarItem } from "./sidebar-item";
+// import { getUserProgress } from "@/db/queries";
 
 type Props = {
   className?: string;
 };
 
-export const Sidebar = ({ className }: Props) => {
+// const teacherId = "user_2w7cDrenrlUgM6J6O3vCoZ9ydiX";
+
+export const Sidebar = async ({ className }: Props) => {
+  // const userProgressData = await getUserProgress();
+  // const [userProgress] = await Promise.all([userProgressData]);
+
   return (
     <div
       className={cn(
@@ -23,7 +29,7 @@ export const Sidebar = ({ className }: Props) => {
         <div className="pt-8 pl-4 pb-7 flex items-center gap-x-3">
           <Image alt="Mascot" src="/mascot.svg" height={40} width={40} />
           <h1 className="text-2xl font-extrabold text-green-600 tracking-wide">
-            Zalupo
+            ML
           </h1>
         </div>
       </Link>
@@ -34,9 +40,17 @@ export const Sidebar = ({ className }: Props) => {
           href="/leaderboard"
           iconSrc="/leaderboard.svg"
         />
-        <SidebarItem label="Задания" href="/quests" iconSrc="/quests.svg" />
-        <SidebarItem label="Магазин" href="/shop" iconSrc="/shop.svg" />
+        <SidebarItem
+          label="Мессенджер"
+          href="/messages"
+          iconSrc="/message.svg"
+        />
         <SidebarItem label="Друзья" href="/friends" iconSrc="/friends.svg" />
+        <SidebarItem label="Задания" href="/quests" iconSrc="/quests.svg" />
+        {/* {teacherId === userProgress?.userId && (
+          <SidebarItem label="Уроки" href="/quests" iconSrc="/quests.svg" />
+        )} */}
+        <SidebarItem label="Магазин" href="/shop" iconSrc="/shop.svg" />
         <SidebarItem label="Профиль" href="/profile" iconSrc="/profile.svg" />
       </div>
       <div className="p-4">

@@ -152,3 +152,35 @@ export const follows = pgTable("follow", {
   followerUserId: text("follower_user_id").notNull(),
   followingUserId: text("following_user_id").notNull(),
 });
+
+export const rooms = pgTable("rooms", {
+  id: serial("id").primaryKey(),
+  firstUserId: text("first_user_id").notNull(),
+  secondUserId: text("second_user_id").notNull(),
+  lastUpdate: timestamp("last_update").notNull().defaultNow(),
+});
+
+export const roomsRelations = relations(rooms, ({ many }) => ({
+  messages: many(messages),
+}));
+
+export const messages = pgTable("messages", {
+  id: serial("id").primaryKey(),
+  roomId: integer("room_id").references(() => rooms.id, {
+    onDelete: "cascade",
+  }),
+  senderUserId: text("sender_user_id").notNull(),
+  senderUserName: text("sender_user_name").notNull(),
+  senderUserImageSrc: text("sender_user_image_src").notNull(),
+  // receiverUserId: text("receiver_user_id").notNull(),
+  // receiverUserImageSrc: text("receiver_user_image_src").notNull(),
+  value: text("value").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const messagesRelations = relations(messages, ({ one }) => ({
+  room: one(rooms, {
+    fields: [messages.roomId],
+    references: [rooms.id],
+  }),
+}));

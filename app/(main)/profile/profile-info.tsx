@@ -17,6 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { upsertUserFriends } from "@/actions/user-friends";
+import { upsertRoom } from "@/actions/messages";
 
 const FormSchema = z.object({
   name: z
@@ -80,6 +81,15 @@ export function ProfileInfo({ name, id, userFriends }: Props) {
     console.log("add");
   };
 
+  const handleMessage = () => {
+    if (pending || !id) return;
+
+    startTransition(() => {
+      upsertRoom(id);
+    });
+    console.log("go to chat");
+  };
+
   return (
     <div>
       <Form {...form}>
@@ -108,6 +118,13 @@ export function ProfileInfo({ name, id, userFriends }: Props) {
         </form>
       </Form>
       <div className="flex justify-center mt-7">
+        {id && (
+          <Button variant="secondary" onClick={handleMessage}>
+            Написать
+          </Button>
+        )}
+      </div>
+      <div className="flex justify-center mt-2">
         {id && isFriend && (
           <Button
             onClick={handleDelete}
@@ -118,7 +135,7 @@ export function ProfileInfo({ name, id, userFriends }: Props) {
           </Button>
         )}
         {id && !isFriend && (
-          <Button onClick={handleAdd} variant="primary" className="py-4 px-7">
+          <Button onClick={handleAdd} variant="primaryOutline" className="py-4 px-7">
             Подписаться
           </Button>
         )}
