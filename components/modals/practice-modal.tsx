@@ -20,7 +20,6 @@ export const PracticeModal = () => {
 
   useEffect(() => setIsClient(true), []);
 
-
   if (!isClient) {
     return null;
   }

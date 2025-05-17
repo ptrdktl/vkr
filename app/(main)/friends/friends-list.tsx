@@ -1,5 +1,6 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import Image from "next/image";
+import { TEACHER_ID } from "@/constants";
+// import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
@@ -15,10 +16,10 @@ type Props = {
   )[];
 };
 
-export const FriendsList = ({ userFriends }: Props) => {
+export const FriendsList = ({}: Props) => {
   return (
     <ul>
-      {userFriends.map((user) => {
+      {/* {userFriends.map((user) => {
         return (
           <li
             key={user!.userId}
@@ -52,7 +53,37 @@ export const FriendsList = ({ userFriends }: Props) => {
             </Link>
           </li>
         );
-      })}
+      })} */}
+      <li className="hover:bg-gray-200/50 w-full p-2 px-3 rounded-xl">
+        <Link
+          href={{
+            pathname: `/profile/${TEACHER_ID}`,
+            query: { id: TEACHER_ID },
+          }}
+        >
+          <div className="flex justify-between">
+            <div className="flex items-center">
+              <Avatar className="border bg-green-500 h-12 w-12 ml-3 mr-6">
+                <AvatarImage
+                  className="object-cover"
+                  src={
+                    "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvdXBsb2FkZWQvaW1nXzJ3d3NBVGVWQnBNTGtTcjRpWnhISjlVMXhiRSJ9"
+                  }
+                />
+              </Avatar>
+              <p className="text-neutral-800 font-bold text-[18px]">
+                {"Ptrdktl"}
+              </p>
+            </div>
+            {/* <div className="flex items-center">
+              <div className="flex items-center gap-x-2">
+                <Image src="/points.svg" alt="Pro" height={26} width={26} />
+                <h3 className="font-bold text-[18px]">{user!.points}</h3>
+              </div>
+            </div> */}
+          </div>
+        </Link>
+      </li>
     </ul>
   );
 };

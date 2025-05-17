@@ -4,9 +4,10 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { UsersList } from "./users-list";
 import { FriendsList } from "./friends-list";
+import { TEACHER_ID } from "@/constants";
 
 type Props = {
-  user?: string;
+  userId?: string;
   otherUsers: {
     data: {
       userId: string;
@@ -28,39 +29,59 @@ type Props = {
   } | null;
 };
 
-export const List = ({ otherUsers }: Props) => {
-  const [isFriendsActive, setIsFriendsActive] = useState(true);
+export const List = ({ otherUsers, userId }: Props) => {
+  const [isFriendsActive, setIsFriendsActive] = useState(false);
+
+  const isTeacher = TEACHER_ID === userId;
 
   return (
     <div className="w-full flex-1 flex-col items-center">
       <div className="border-2 rounded-xl p-4 space-y-4">
         <div className="flex gap-2 p-2">
-          <p
-            onClick={() =>
-              !isFriendsActive && setIsFriendsActive(!isFriendsActive)
-            }
-            className={cn(
-              "font-bold text-xl rounded-xl inline-flex p-2 px-4 cursor-pointer",
-              isFriendsActive
-                ? "text-white bg-indigo-600"
-                : "text-neutral-700 bg-neutral-200"
-            )}
-          >
-            Друзья
-          </p>
-          <p
-            onClick={() =>
-              isFriendsActive && setIsFriendsActive(!isFriendsActive)
-            }
-            className={cn(
-              "font-bold text-xl rounded-xl inline-flex p-2 px-4 cursor-pointer",
-              isFriendsActive
-                ? "text-neutral-700 bg-neutral-200"
-                : "text-white bg-indigo-600"
-            )}
-          >
-            Все ученики
-          </p>
+          {isTeacher ? (
+            <p
+              onClick={() =>
+                isFriendsActive && setIsFriendsActive(!isFriendsActive)
+              }
+              className={cn(
+                "font-bold text-xl rounded-xl inline-flex p-2 px-4 cursor-pointer",
+                isFriendsActive
+                  ? "text-neutral-700 bg-neutral-200"
+                  : "text-white bg-indigo-600"
+              )}
+            >
+              Все ученики
+            </p>
+          ) : (
+            <>
+              <p
+                onClick={() =>
+                  !isFriendsActive && setIsFriendsActive(!isFriendsActive)
+                }
+                className={cn(
+                  "font-bold text-xl rounded-xl inline-flex p-2 px-4 cursor-pointer",
+                  isFriendsActive
+                    ? "text-white bg-indigo-600"
+                    : "text-neutral-700 bg-neutral-200"
+                )}
+              >
+                Учитель
+              </p>
+              <p
+                onClick={() =>
+                  isFriendsActive && setIsFriendsActive(!isFriendsActive)
+                }
+                className={cn(
+                  "font-bold text-xl rounded-xl inline-flex p-2 px-4 cursor-pointer",
+                  isFriendsActive
+                    ? "text-neutral-700 bg-neutral-200"
+                    : "text-white bg-indigo-600"
+                )}
+              >
+                Все ученики
+              </p>
+            </>
+          )}
         </div>
         <div className="space-y-2 mt-5">
           {isFriendsActive ? (

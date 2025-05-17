@@ -33,6 +33,8 @@ const buttonVariants = cva(
           "bg-transparent text-slate-500 border-2 border-transparent hover:bg-slate-100 transition-none",
         sidebarOutline:
           "bg-sky-500/15 text-sky-500 border-sky-300 border-2 hover:bg-sky-500/20 transition-none",
+        dropDown:
+          "bg-transparent text-slate-200 border-transparent border-0 hover:text-white cursor-pointer",
       },
       size: {
         default: "h-11 px-4 py-2",

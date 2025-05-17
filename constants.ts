@@ -22,3 +22,5 @@ export const quests = [
     value: 1000,
   },
 ];
+
+export const TEACHER_ID = "user_2w7cDrenrlUgM6J6O3vCoZ9ydiX";

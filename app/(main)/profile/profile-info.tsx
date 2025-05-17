@@ -14,9 +14,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState, useTransition } from "react";
+import { useTransition } from "react";
 import { Button } from "@/components/ui/button";
-import { upsertUserFriends } from "@/actions/user-friends";
+// import { upsertUserFriends } from "@/actions/user-friends";
 import { upsertRoom } from "@/actions/messages";
 
 const FormSchema = z.object({
@@ -47,39 +47,39 @@ type Props = {
     | undefined;
 };
 
-export function ProfileInfo({ name, id, userFriends }: Props) {
-  const [isFriend, setIsFriend] = useState(false);
+export function ProfileInfo({ name, id }: Props) {
+  // const [isFriend, setIsFriend] = useState(false);
 
   const [pending, startTransition] = useTransition();
 
-  useEffect(() => {
-    setIsFriend(userFriends?.find((user) => user?.userId === id) !== undefined);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   setIsFriend(userFriends?.find((user) => user?.userId === id) !== undefined);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
-  const handleDelete = () => {
-    if (pending || !id) return;
+  // const handleDelete = () => {
+  //   if (pending || !id) return;
 
-    startTransition(() => {
-      upsertUserFriends(id);
-      setIsFriend(!isFriend);
-    });
-    console.log("delete");
-  };
+  //   startTransition(() => {
+  //     upsertUserFriends(id);
+  //     setIsFriend(!isFriend);
+  //   });
+  //   console.log("delete");
+  // };
 
-  const handleAdd = () => {
-    if (pending || !id) return;
+  // const handleAdd = () => {
+  //   if (pending || !id) return;
 
-    startTransition(() => {
-      upsertUserFriends(id);
-      setIsFriend(!isFriend);
-    });
-    console.log("add");
-  };
+  //   startTransition(() => {
+  //     upsertUserFriends(id);
+  //     setIsFriend(!isFriend);
+  //   });
+  //   console.log("add");
+  // };
 
   const handleMessage = () => {
     if (pending || !id) return;
@@ -124,7 +124,7 @@ export function ProfileInfo({ name, id, userFriends }: Props) {
           </Button>
         )}
       </div>
-      <div className="flex justify-center mt-2">
+      {/* <div className="flex justify-center mt-2">
         {id && isFriend && (
           <Button
             onClick={handleDelete}
@@ -139,7 +139,7 @@ export function ProfileInfo({ name, id, userFriends }: Props) {
             Подписаться
           </Button>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

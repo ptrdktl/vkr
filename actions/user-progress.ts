@@ -18,7 +18,6 @@ export const upsertUserProgress = async (courseId: number) => {
   const { userId } = await auth();
 
   const user = await currentUser();
-  console.log(user);
 
   if (!userId || !user) {
     throw new Error("Unauthorized");

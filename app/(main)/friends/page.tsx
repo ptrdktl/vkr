@@ -41,7 +41,7 @@ const FriendsPage = async () => {
         <Quests points={userProgress.points} />
       </StickyWrapper>
       <FeedWrapper>
-        <List user={user?.id} otherUsers={otherUsers! ?? []} />
+        <List userId={user?.id} otherUsers={otherUsers! ?? []} />
       </FeedWrapper>
     </div>
   );

@@ -12,8 +12,9 @@ import { Quests } from "@/components/quests";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, InfinityIcon } from "lucide-react";
 import { ProfileInfo } from "./profile-info";
+import { TEACHER_ID } from "@/constants";
 
 type Props = {
   id?: string;
@@ -94,7 +95,11 @@ const ProfilePage = async ({ id }: Props) => {
                         width={26}
                       />
                       <h3 className="font-bold text-lg">
-                        {userProgress.hearts}
+                        {userProgress.userId === TEACHER_ID ? (
+                          <InfinityIcon className="h-4 w-4 stroke-[3] text-red-500" />
+                        ) : (
+                          userProgress.hearts
+                        )}
                       </h3>
                     </div>
                     <p className="text-muted-foreground text-sm">

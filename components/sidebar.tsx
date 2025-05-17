@@ -6,17 +6,18 @@ import { Loader } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 import { SidebarItem } from "./sidebar-item";
-// import { getUserProgress } from "@/db/queries";
+import { getUserProgress } from "@/db/queries";
+import { TEACHER_ID } from "@/constants";
 
 type Props = {
   className?: string;
 };
 
-// const teacherId = "user_2w7cDrenrlUgM6J6O3vCoZ9ydiX";
-
 export const Sidebar = async ({ className }: Props) => {
-  // const userProgressData = await getUserProgress();
-  // const [userProgress] = await Promise.all([userProgressData]);
+  const userProgressData = await getUserProgress();
+  const [userProgress] = await Promise.all([userProgressData]);
+
+  const isTeacher = TEACHER_ID === userProgress?.userId;
 
   return (
     <div
@@ -28,7 +29,7 @@ export const Sidebar = async ({ className }: Props) => {
       <Link href="/learn">
         <div className="pt-8 pl-4 pb-7 flex items-center gap-x-3">
           <Image alt="Mascot" src="/mascot.svg" height={40} width={40} />
-          <h1 className="text-2xl font-extrabold text-green-600 tracking-wide">
+          <h1 className="text-2xl font-extrabold text-orange-400 tracking-wide">
             ML
           </h1>
         </div>
@@ -45,12 +46,18 @@ export const Sidebar = async ({ className }: Props) => {
           href="/messages"
           iconSrc="/message.svg"
         />
-        <SidebarItem label="Друзья" href="/friends" iconSrc="/friends.svg" />
-        <SidebarItem label="Задания" href="/quests" iconSrc="/quests.svg" />
-        {/* {teacherId === userProgress?.userId && (
-          <SidebarItem label="Уроки" href="/quests" iconSrc="/quests.svg" />
-        )} */}
-        <SidebarItem label="Магазин" href="/shop" iconSrc="/shop.svg" />
+        {isTeacher ? (
+          <SidebarItem label="Ученики" href="/friends" iconSrc="/friends.svg" />
+        ) : (
+          <SidebarItem label="Учитель" href="/friends" iconSrc="/friends.svg" />
+        )}
+        {/* <SidebarItem label="Задания" href="/quests" iconSrc="/quests.svg" /> */}
+        {isTeacher && (
+          <SidebarItem label="Уроки" href="/editor" iconSrc="/quests.svg" />
+        )}
+        {!isTeacher && (
+          <SidebarItem label="Магазин" href="/shop" iconSrc="/shop.svg" />
+        )}
         <SidebarItem label="Профиль" href="/profile" iconSrc="/profile.svg" />
       </div>
       <div className="p-4">

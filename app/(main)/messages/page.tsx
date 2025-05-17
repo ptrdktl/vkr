@@ -65,7 +65,7 @@ const MessagesPage = async () => {
                 // value={keywords}
                 // onChange={(e) => setKeywords(e.target.value)}
                 className="flex w-full bg-neutral-200 py-1 px-2 border-1 rounded-md"
-                placeholder="Не работает (ПОКА ЧТО)"
+                placeholder="Введите имя"
               />
               <Separator className="mb-4 mt-3 h-0.5 rounded-full" />
             </div>

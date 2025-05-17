@@ -33,7 +33,7 @@ export default function Home() {
                 forceRedirectUrl="/learn"
               >
                 <Button size="lg" variant="secondary" className="w-full">
-                  Начать Изучение
+                  Начать
                 </Button>
               </SignUpButton>
               <SignInButton
@@ -48,7 +48,7 @@ export default function Home() {
             </SignedOut>
             <SignedIn>
               <Button size="lg" variant="secondary" className="w-full" asChild>
-                <Link href="/learn">Продолжить обучение</Link>
+                <Link href="/learn">Продолжить</Link>
               </Button>
             </SignedIn>
           </ClerkLoaded>

@@ -5,6 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import db from "@/db/drizzle";
 import {
   challengeProgress,
+  challenges,
   courses,
   follows,
   lessons,
@@ -385,6 +386,72 @@ export const getMessages = cache(async (roomId: number) => {
       senderUserName: true,
       value: true,
       createdAt: true,
+    },
+  });
+
+  return data;
+});
+
+//editor only
+export const getUnitsForEditor = cache(async () => {
+  const { userId } = await auth();
+  const userProgress = await getUserProgress();
+
+  if (!userId || !userProgress?.activeCourseId) {
+    return [];
+  }
+
+  const data = await db.query.units.findMany({
+    orderBy: (units, { asc }) => [asc(units.order)],
+    where: eq(units.courseId, userProgress.activeCourseId),
+    with: {
+      course: true,
+      lessons: {
+        orderBy: (lessons, { asc }) => [asc(lessons.order)],
+      },
+    },
+  });
+
+  return data;
+});
+
+export const getLessonForEditor = cache(async (lessonId: number) => {
+  const { userId } = await auth();
+  const userProgress = await getUserProgress();
+
+  if (!userId || !userProgress?.activeCourseId) {
+    return;
+  }
+
+  if (!lessonId) {
+    return;
+  }
+
+  const data = await db.query.lessons.findFirst({
+    where: eq(lessons.id, lessonId),
+  });
+
+  return data;
+});
+
+export const getChallengesForEditor = cache(async (lessonId: number) => {
+  const { userId } = await auth();
+  const userProgress = await getUserProgress();
+
+  if (!userId || !userProgress?.activeCourseId) {
+    return;
+  }
+
+  if (!lessonId) {
+    return;
+  }
+
+  const data = await db.query.challenges.findMany({
+    orderBy: (challenges, { asc }) => [asc(challenges.order)],
+    where: eq(challenges.lessonId, lessonId),
+    with: {
+      challengeOptions: true,
+      challengeProgress: true,
     },
   });
 

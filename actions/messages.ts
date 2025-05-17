@@ -24,7 +24,8 @@ export const upsertRoom = async (otherUserId: string) => {
     roomId = await getRoom(otherUserId);
   }
 
-  redirect(`/messages/${roomId!.id}`);
+  console.log(roomId!.id);
+  redirect(`/messages/${roomId!.id}?roomId=${roomId!.id}`);
 };
 
 export const createMessage = async (roomId: number, value: string) => {
