@@ -35,7 +35,12 @@ export const Sidebar = async ({ className }: Props) => {
         </div>
       </Link>
       <div className="flex flex-col gap-y-2 flex-1">
-        <SidebarItem label="Обучение" href="/learn" iconSrc="/learn.svg" />
+        {isTeacher ? (
+          <SidebarItem label="Мои уроки" href="/learn" iconSrc="/learn.svg" />
+        ) : (
+          <SidebarItem label="Обучение" href="/learn" iconSrc="/learn.svg" />
+        )}
+
         <SidebarItem
           label="Лидеры"
           href="/leaderboard"
@@ -51,9 +56,10 @@ export const Sidebar = async ({ className }: Props) => {
         ) : (
           <SidebarItem label="Учитель" href="/friends" iconSrc="/friends.svg" />
         )}
-        {/* <SidebarItem label="Задания" href="/quests" iconSrc="/quests.svg" /> */}
-        {isTeacher && (
-          <SidebarItem label="Уроки" href="/editor" iconSrc="/quests.svg" />
+        {isTeacher ? (
+          <SidebarItem label="Редактор" href="/editor" iconSrc="/quests.svg" />
+        ) : (
+          <SidebarItem label="Задания" href="/quests" iconSrc="/quests.svg" />
         )}
         {!isTeacher && (
           <SidebarItem label="Магазин" href="/shop" iconSrc="/shop.svg" />

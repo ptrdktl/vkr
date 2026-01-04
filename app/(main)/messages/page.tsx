@@ -58,15 +58,15 @@ const MessagesPage = async () => {
                 <h3 className="font-bold text-lg">Чаты</h3>
               </div>
               <p className="text-muted-foreground">
-                Узнайте информацию о пользователе
+                Чаты с пользователями
               </p>
-              <input
+              {/* <input
                 type="text"
                 // value={keywords}
                 // onChange={(e) => setKeywords(e.target.value)}
                 className="flex w-full bg-neutral-200 py-1 px-2 border-1 rounded-md"
                 placeholder="Введите имя"
-              />
+              /> */}
               <Separator className="mb-4 mt-3 h-0.5 rounded-full" />
             </div>
             <div className="space-y-2 mt-5"></div>
