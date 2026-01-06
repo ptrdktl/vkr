@@ -9,6 +9,12 @@ import { getUserProgress, getUserSubscription } from "@/db/queries";
 import { Items } from "./items";
 import { Promo } from "@/components/promo";
 import { Quests } from "@/components/quests";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Магазин",
+  description: "Страница магазина. Покупка жизней. Оформление подписки.",
+};
 
 const ShopPage = async () => {
   const userProgressData = getUserProgress();

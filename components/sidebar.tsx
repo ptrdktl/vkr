@@ -19,6 +19,25 @@ export const Sidebar = async ({ className }: Props) => {
 
   const isTeacher = TEACHER_ID === userProgress?.userId;
 
+  if (!userProgress || !userProgress.activeCourse) {
+    // console.log(1);
+    return (
+      <div
+        className={cn(
+          "flex h-full lg:w-[256px] lg:fixed left-0 top-0 px-4 border-r-2 flex-col",
+          className
+        )}
+      >
+        <div className="pt-8 pl-4 pb-7 flex items-center gap-x-3">
+          <Image alt="Mascot" src="/mascot.svg" height={40} width={40} />
+          <h1 className="text-2xl font-extrabold text-orange-400 tracking-wide">
+            ML
+          </h1>
+        </div>
+       </div>
+    );
+  }
+
   return (
     <div
       className={cn(

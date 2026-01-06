@@ -16,6 +16,12 @@ import {
 
 import { Unit } from "./unit";
 import { Header } from "./header";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Обучение",
+  description: "Страница обучения. Информация о доступных уроках.",
+};
 
 const LearnPage = async () => {
   const userProgressData = getUserProgress();

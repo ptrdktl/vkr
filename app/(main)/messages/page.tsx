@@ -14,6 +14,12 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Мессенджер",
+  description: "Мессенджер для общения. Чаты пользователей.",
+};
 
 const MessagesPage = async () => {
   const userProgressData = getUserProgress();
@@ -57,9 +63,7 @@ const MessagesPage = async () => {
                 />
                 <h3 className="font-bold text-lg">Чаты</h3>
               </div>
-              <p className="text-muted-foreground">
-                Чаты с пользователями
-              </p>
+              <p className="text-muted-foreground">Чаты с пользователями</p>
               {/* <input
                 type="text"
                 // value={keywords}

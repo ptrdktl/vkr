@@ -8,6 +8,11 @@ import { getUserProgress, getUserSubscription } from "@/db/queries";
 import { Progress } from "@/components/ui/progress";
 import { Promo } from "@/components/promo";
 import { quests } from "@/constants";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Задания",
+};
 
 const QuestsPage = async () => {
   const userProgressData = getUserProgress();

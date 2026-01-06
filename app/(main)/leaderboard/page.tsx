@@ -13,6 +13,12 @@ import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Promo } from "@/components/promo";
 import { Quests } from "@/components/quests";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Таблица лидеров",
+  description: "Информация о лидерах по очкам",
+};
 
 const LeaderboardPage = async () => {
   const userProgressData = getUserProgress();
@@ -63,7 +69,9 @@ const LeaderboardPage = async () => {
               key={userProgress.userId}
               className="flex items-center w-full p-2 px-4 rounded-xl hover:bg-gray-200/50"
             >
-              <p className="font-bold text-lime-700 mr-4">{index + 1}</p>
+              <p className="font-bold text-lime-700 min-w-6 mr-4">
+                {index + 1}
+              </p>
               <Avatar className="border bg-green-500 h-12 w-12 ml-3 mr-6">
                 <AvatarImage
                   className="object-cover"

@@ -15,6 +15,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, InfinityIcon } from "lucide-react";
 import { ProfileInfo } from "./profile-info";
 import { TEACHER_ID } from "@/constants";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Профиль",
+  description: "Страница информации о профиле пользователя.",
+};
 
 type Props = {
   id?: string;

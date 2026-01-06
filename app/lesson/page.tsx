@@ -3,6 +3,22 @@ import { redirect } from "next/navigation";
 import { getLesson, getUserProgress, getUserSubscription } from "@/db/queries";
 
 import { Quiz } from "./quiz";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  // read route params
+  const lessonData = await getLesson();
+
+  if (!lessonData) {
+    return {
+      title: "Урок",
+    };
+  }
+
+  return {
+    title: `Урок №${lessonData?.order}: ${lessonData?.title}`,
+  };
+}
 
 const LessonPage = async () => {
   const lessonData = getLesson();
@@ -12,7 +28,7 @@ const LessonPage = async () => {
   const [lesson, userProgress, userSubscription] = await Promise.all([
     lessonData,
     userProgressData,
-    userSubscriptionData
+    userSubscriptionData,
   ]);
 
   if (!lesson || !userProgress) {

@@ -8,6 +8,12 @@ import { Promo } from "@/components/promo";
 import { Quests } from "@/components/quests";
 import { currentUser } from "@clerk/nextjs/server";
 import { List } from "./list";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Учитель и ученики",
+  description: "Мессенджер для общения. Чаты пользователей.",
+};
 
 const FriendsPage = async () => {
   const userProgressData = getUserProgress();
